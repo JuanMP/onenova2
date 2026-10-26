@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Panel general · OneNova{% endblock %}
+{% block content %}
+<div class="welcome-row">
+  <div><div class="eyebrow">TU ESPACIO DE TRABAJO</div><h1>Panel general<span class="heading-period">.</span></h1><p class="subtitle">Una visión clara de la actividad de tu negocio.</p></div>
+  <div class="welcome-badge"><span class="welcome-icon">✦</span><div><strong>Bienvenido a OneNova</strong><small>Tu espacio de gestión está listo para empezar.</small></div></div>
+</div>
+<div class="section-heading"><div><h2>Resumen de actividad</h2><p>Indicadores generales de tu espacio de trabajo</p></div><span class="live-pill"><span></span> DATOS EN TIEMPO REAL</span></div>
+<div class="stats-grid">
+  <div class="stat-card"><div class="stat-top"><span class="stat-icon icon-purple">♙</span><span class="stat-trend">GESTIÓN</span></div><div class="stat-number">{{ clientes_count }}</div><div class="stat-label">Clientes registrados</div><div class="stat-bottom">Contactos de tu negocio</div></div>
+  <div class="stat-card"><div class="stat-top"><span class="stat-icon icon-blue">⇄</span><span class="stat-trend">GESTIÓN</span></div><div class="stat-number">{{ proveedores_count }}</div><div class="stat-label">Proveedores</div><div class="stat-bottom">Red de suministro</div></div>
+  <div class="stat-card"><div class="stat-top"><span class="stat-icon icon-orange">◇</span><span class="stat-trend">INVENTARIO</span></div><div class="stat-number">{{ productos_count }}</div><div class="stat-label">Productos</div><div class="stat-bottom">Artículos registrados</div></div>
+  <div class="stat-card"><div class="stat-top"><span class="stat-icon icon-green">▤</span><span class="stat-trend">ARCHIVO</span></div><div class="stat-number">{{ documentos_count }}</div><div class="stat-label">Documentos</div><div class="stat-bottom">Facturas, albaranes y más</div></div>
+</div>
+<div class="content-grid">
+  <section class="panel-card">
+    <div class="panel-header"><div><h2>Actividad reciente</h2><p>Los últimos documentos añadidos</p></div><a class="text-link" href="/admin/gestion/documento/">Ver documentos ↗</a></div>
+    {% if documentos_recientes %}
+      <div class="table-responsive"><table class="table activity-table"><thead><tr><th>DOCUMENTO</th><th>TIPO</th><th>ESTADO</th><th>FECHA</th></tr></thead><tbody>
+      {% for doc in documentos_recientes %}<tr><td><span class="file-icon">▤</span><strong>{{ doc.nombre }}</strong></td><td>{{ doc.get_tipo_display }}</td><td><span class="state-pill">{{ doc.get_estado_display }}</span></td><td>{{ doc.creado|date:"d/m/Y" }}</td></tr>{% endfor %}
+      </tbody></table></div>
+    {% else %}
+      <div class="empty-state"><div class="empty-icon">▤</div><strong>Aún no hay documentos</strong><p>Cuando registres documentos, aparecerán aquí para que puedas acceder a ellos rápidamente.</p><a class="btn btn-dark btn-sm" href="/admin/gestion/documento/add/">Añadir primer documento</a></div>
+    {% endif %}
+  </section>
+  <section class="panel-card quick-panel"><div class="panel-header"><div><h2>Accesos rápidos</h2><p>Empieza por lo esencial</p></div></div>
+    <a class="quick-link" href="/admin/gestion/cliente/add/"><span class="quick-icon quick-purple">＋</span><span><strong>Nuevo cliente</strong><small>Registra un contacto</small></span><span class="quick-arrow">↗</span></a>
+    <a class="quick-link" href="/admin/gestion/proveedor/add/"><span class="quick-icon quick-blue">＋</span><span><strong>Nuevo proveedor</strong><small>Añade un proveedor</small></span><span class="quick-arrow">↗</span></a>
+    <a class="quick-link" href="/admin/gestion/producto/add/"><span class="quick-icon quick-orange">＋</span><span><strong>Nuevo producto</strong><small>Actualiza tu catálogo</small></span><span class="quick-arrow">↗</span></a>
+    <a class="quick-link" href="/admin/gestion/documento/add/"><span class="quick-icon quick-green">＋</span><span><strong>Nuevo documento</strong><small>Guarda un archivo</small></span><span class="quick-arrow">↗</span></a>
+  </section>
+</div>
+<div class="roadmap-strip"><div class="roadmap-mark">✦</div><div><strong>El comienzo de algo más inteligente</strong><p>Esta primera versión establece la base. Después añadiremos búsqueda avanzada, extracción de datos e IA local.</p></div><span class="roadmap-tag">FASE 1 / 5</span></div>
+{% endblock %}
