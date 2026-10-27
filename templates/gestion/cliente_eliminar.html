@@ -1,0 +1,36 @@
+
+{% extends "base.html" %}
+
+{% block title %}Eliminar cliente | OneNova{% endblock %}
+{% block page_name %}Eliminar cliente{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <h1 class="h3">Eliminar cliente</h1>
+    <p class="text-secondary">Comprueba los datos antes de continuar.</p>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+        <p>
+            ¿Seguro que quieres eliminar al cliente
+            <strong>{{ cliente.nombre }}</strong>?
+        </p>
+
+        <p class="text-secondary">
+            Esta acción no se puede deshacer.
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">
+                Sí, eliminar
+            </button>
+            <a href="{% url 'gestion:clientes' %}"
+               class="btn btn-outline-secondary">
+                Cancelar
+            </a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,6 +1,7 @@
 {% load static %}
 <!doctype html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,30 +9,46 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
+
 <body>
-<div class="app-shell">
-  <aside class="sidebar">
-    <a class="brand" href="{% url 'dashboard' %}"><span class="brand-mark">O</span><span>OneNova<small>GESTIÓN INTELIGENTE</small></span></a>
-    <div class="nav-label">ESPACIO DE TRABAJO</div>
-    <a class="nav-link active" href="{% url 'dashboard' %}"><span>▦</span> Panel general</a>
-    <div class="nav-label mt-4">GESTIÓN</div>
-    <a class="nav-link" href="/admin/gestion/cliente/"><span>♙</span> Clientes</a>
-    <a class="nav-link" href="/admin/gestion/proveedor/"><span>⇄</span> Proveedores</a>
-    <a class="nav-link" href="/admin/gestion/producto/"><span>◇</span> Productos</a>
-    <a class="nav-link" href="/admin/gestion/documento/"><span>▤</span> Documentos</a>
-    <div class="sidebar-bottom">
-      <div class="ai-mini"><span class="ai-spark">✦</span><strong>OneNova IA</strong><p>Tu asistente inteligente, próximamente.</p><span class="coming">EN PREPARACIÓN</span></div>
-      {% if user.is_authenticated %}
-      <div class="user-row"><div class="avatar">{{ user.username|slice:":1"|upper }}</div><div class="user-info"><strong>{{ user.username }}</strong><small>Sesión iniciada</small></div><form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="logout" title="Cerrar sesión">↗</button></form></div>
-      {% endif %}
-    </div>
-  </aside>
-  <main class="main-area">
-    <header class="topbar"><div><span class="breadcrumb-label">OneNova</span><span class="breadcrumb-sep">/</span><span class="breadcrumb-current">{% block page_name %}Panel general{% endblock %}</span></div><div class="topbar-right"><span class="status-dot"></span><span>Entorno local</span><span class="topbar-divider"></span><span class="date-label">Workspace</span></div></header>
-    <div class="page-content">{% block content %}{% endblock %}</div>
-    <footer>OneNova <span>·</span> Tu negocio, más claro. <span class="footer-right">Versión inicial · Desarrollo local</span></footer>
-  </main>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="{% url 'dashboard' %}"><span class="brand-mark">O</span><span>OneNova<small>GESTIÓN
+            INTELIGENTE</small></span></a>
+      <div class="nav-label">ESPACIO DE TRABAJO</div>
+      <a class="nav-link active" href="{% url 'dashboard' %}"><span>▦</span> Panel general</a>
+      <div class="nav-label mt-4">GESTIÓN</div>
+      <a class="nav-link" href="{% url 'gestion:clientes' %}">Clientes</a>
+      <a class="nav-link" href="/gestion/proveedores/">Proveedores</a>
+      <a class="nav-link" href="/gestion/productos/">Productos</a>
+      <a class="nav-link" href="/gestion/documentos/">Documentos</a>
+      <div class="sidebar-bottom">
+        <div class="ai-mini"><span class="ai-spark">✦</span><strong>OneNova IA</strong>
+          <p>Tu asistente inteligente, próximamente.</p><span class="coming">EN PREPARACIÓN</span>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="user-row">
+          <div class="avatar">{{ user.username|slice:":1"|upper }}</div>
+          <div class="user-info"><strong>{{ user.username }}</strong><small>Sesión iniciada</small></div>
+          <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="logout"
+              title="Cerrar sesión">↗</button></form>
+        </div>
+        {% endif %}
+      </div>
+    </aside>
+    <main class="main-area">
+      <header class="topbar">
+        <div><span class="breadcrumb-label">OneNova</span><span class="breadcrumb-sep">/</span><span
+            class="breadcrumb-current">{% block page_name %}Panel general{% endblock %}</span></div>
+        <div class="topbar-right"><span class="status-dot"></span><span>Entorno local</span><span
+            class="topbar-divider"></span><span class="date-label">Workspace</span></div>
+      </header>
+      <div class="page-content">{% block content %}{% endblock %}</div>
+      <footer>OneNova <span>·</span> Tu negocio, más claro. <span class="footer-right">Versión inicial · Desarrollo
+          local</span></footer>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,48 @@
+
+{% extends "base.html" %}
+
+{% block title %}{{ titulo }} | OneNova{% endblock %}
+{% block page_name %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <h1 class="h3 mb-1">{{ titulo }}</h1>
+    <p class="text-secondary">Introduce los datos del contacto.</p>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+        <form method="post">
+            {% csrf_token %}
+
+            {% if formulario.non_field_errors %}
+                <div class="alert alert-danger">
+                    {{ formulario.non_field_errors }}
+                </div>
+            {% endif %}
+
+            {% for campo in formulario %}
+                <div class="mb-3">
+                    <label for="{{ campo.id_for_label }}" class="form-label">
+                        {{ campo.label }}
+                    </label>
+                    {{ campo.as_widget|safe }}
+                    {% if campo.errors %}
+                        <div class="text-danger small">{{ campo.errors }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-primary">
+                    Guardar cliente
+                </button>
+                <a href="{% url 'gestion:clientes' %}"
+                   class="btn btn-outline-secondary">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
